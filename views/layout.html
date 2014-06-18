@@ -38,11 +38,25 @@
 			</nav>
 		</header>
 
+		<div ng-controller="CharactersController">
+			<ul class="character-list">
+				<li ng-repeat="character in characters">
+					<div ng-if="character.thumbnail != null">
+						<img src="[[character.thumbnail.path]].[[character.thumbnail.extension]]" alt="[[character.name]]">
+					</div>
+					<div ng-if="character.thumbnail == null">
+						<span>[[character.name]]</span>
+					</div>
+					</li>
+			</ul>
+			<button class="load-characters" ng-click="loadCharacters()" data-offset="[[next_offset]]" data-limit="[[limit]]">More..</button>
+		</div>
+
 		<!-- Content -->
 		<div class="data-view" data-ng-view></div>
 	</div>
 
-	<script type="text/javascript" src="/js/vendor/holderjs/holder.js"></script>
-	<script data-main="/js/bootstrapper" src="/js/vendor/requirejs/require.js"></script>
+	<script type="text/javascript" src="/js/vendor/angular-loader/angular-loader.min.js"></script>
+	<script data-main="/js/main" src="/js/vendor/requirejs/require.js"></script>
 </body>
 </html>

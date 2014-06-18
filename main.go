@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"github.com/codegangsta/negroni"
-	"github.com/ninnemana/marvelista/api"
+	// "github.com/ninnemana/marvelista/api"
+	"html/template"
 	"net/http"
 )
 
@@ -17,5 +17,16 @@ func main() {
 }
 
 func home(rw http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(rw, api.List())
+	tmpl, err := template.ParseFiles("views/layout.html")
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(rw, nil)
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	// fmt.Fprint(rw, api.List())
 }
